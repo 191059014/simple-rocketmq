@@ -15,7 +15,7 @@ import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 
 /**
- * rocket包装类
+ * RocketMQ包装类
  *
  * @version v0.1, 2020/8/14 16:39, create by huangbiao.
  */

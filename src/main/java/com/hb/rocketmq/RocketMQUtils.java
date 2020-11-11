@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * 工具类
+ * RocketMQ工具类
  *
  * @version v0.1, 2020/8/13 17:39, create by huangbiao.
  */
