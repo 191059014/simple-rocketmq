@@ -4,9 +4,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.rocketmq.common.message.Message;
+import org.apache.rocketmq.common.message.MessageExt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -93,6 +95,20 @@ public class RocketMQUtils {
             }
             return null;
         }
+    }
+
+    /**
+     * MQ发送消息解码
+     *
+     * @param messageExt 消息
+     * @param tClass  类
+     * @param <T>     泛型
+     * @return T
+     */
+    public static <T> T decode(MessageExt messageExt, Class<T> tClass) {
+        Objects.requireNonNull(messageExt, "messageExt is null");
+        String msg = new String(messageExt.getBody(), Charset.forName("UTF-8"));
+        return decode(msg, tClass);
     }
 
     /**
