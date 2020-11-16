@@ -26,22 +26,32 @@ public class RocketMQUtils {
     private static final Logger LOGGER = LoggerFactory.getLogger(RocketMQUtils.class);
 
     /**
+     * 默认的版本
+     */
+    private static final String DEFAULT_VERSION = "1.0";
+
+    /**
      * 创建MQ消息实体
      *
-     * @param topic      主题
-     * @param msgContent 消息内容
+     * @param topic
+     *            主题
+     * @param msgContent
+     *            消息内容
      * @return MQ消息实体
      */
     public static Message createMessage(String topic, Object msgContent) {
-        return createMessage(topic, msgContent, null);
+        return createMessage(topic, msgContent, DEFAULT_VERSION);
     }
 
     /**
      * 创建MQ消息实体
      *
-     * @param topic      主题
-     * @param msgContent 消息内容
-     * @param version    版本号
+     * @param topic
+     *            主题
+     * @param msgContent
+     *            消息内容
+     * @param version
+     *            版本号
      * @return MQ消息实体
      */
     public static Message createMessage(String topic, Object msgContent, String version) {
@@ -55,26 +65,31 @@ public class RocketMQUtils {
     /**
      * MQ发送消息转码
      *
-     * @param topic      主题
-     * @param msgContent 消息内容
+     * @param topic
+     *            主题
+     * @param msgContent
+     *            消息内容
      * @return json格式的消息
      */
     public static String encode(String topic, Object msgContent) {
-        return encode(topic, msgContent, null);
+        return encode(topic, msgContent, DEFAULT_VERSION);
     }
 
     /**
      * MQ发送消息转码
      *
-     * @param topic      主题
-     * @param msgContent 消息内容
-     * @param version    版本号
+     * @param topic
+     *            主题
+     * @param msgContent
+     *            消息内容
+     * @param version
+     *            版本号
      * @return json格式的消息
      */
     public static String encode(String topic, Object msgContent, String version) {
         // 请求头
         Map<String, String> header = new HashMap<>();
-        header.put("version", version == null ? "1.0" : version);
+        header.put("version", version);
         header.put("topicName", topic);
         // 请求体
         Map<String, Object> body = new HashMap<>();
@@ -100,9 +115,12 @@ public class RocketMQUtils {
     /**
      * MQ发送消息解码
      *
-     * @param messageExt 消息
-     * @param tClass  类
-     * @param <T>     泛型
+     * @param messageExt
+     *            消息
+     * @param tClass
+     *            类
+     * @param <T>
+     *            泛型
      * @return T
      */
     public static <T> T decode(MessageExt messageExt, Class<T> tClass) {
@@ -114,9 +132,12 @@ public class RocketMQUtils {
     /**
      * MQ发送消息解码
      *
-     * @param message 消息
-     * @param tClass  类
-     * @param <T>     泛型
+     * @param message
+     *            消息
+     * @param tClass
+     *            类
+     * @param <T>
+     *            泛型
      * @return T
      */
     public static <T> T decode(String message, Class<T> tClass) {
@@ -138,5 +159,3 @@ public class RocketMQUtils {
     }
 
 }
-
-    
