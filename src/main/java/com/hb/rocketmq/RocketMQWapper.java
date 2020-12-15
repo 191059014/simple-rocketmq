@@ -29,8 +29,10 @@ public class RocketMQWapper {
     /**
      * 创建一个普通消息的生产者
      *
-     * @param producerGroup 生产者组
-     * @param nameSrvAddr   状态机集群地址，多个ip:port，中间用逗号隔开
+     * @param producerGroup
+     *            生产者组
+     * @param nameSrvAddr
+     *            状态机集群地址，多个ip:port，中间用逗号隔开
      * @return DefaultMQProducer
      */
     public static DefaultMQProducer createSimpleProducer(String producerGroup, String nameSrvAddr) {
@@ -45,13 +47,18 @@ public class RocketMQWapper {
     /**
      * 创建一个事务消息的生产者
      *
-     * @param producerGroup       生产者组
-     * @param nameSrvAddr         状态机集群地址，多个ip:port，中间用逗号隔开
-     * @param executorService     线程池
-     * @param transactionListener 监听
+     * @param producerGroup
+     *            生产者组
+     * @param nameSrvAddr
+     *            状态机集群地址，多个ip:port，中间用逗号隔开
+     * @param executorService
+     *            线程池
+     * @param transactionListener
+     *            监听
      * @return TransactionProducerAgent
      */
-    public static TransactionMQProducer createTransactionProducer(String producerGroup, String nameSrvAddr, ExecutorService executorService, TransactionListener transactionListener) {
+    public static TransactionMQProducer createTransactionProducer(String producerGroup, String nameSrvAddr,
+        ExecutorService executorService, TransactionListener transactionListener) {
         Objects.requireNonNull(producerGroup, "producerGroup is null");
         Objects.requireNonNull(nameSrvAddr, "nameSrvAddr is null");
         Objects.requireNonNull(executorService, "executorService is null");
@@ -60,80 +67,116 @@ public class RocketMQWapper {
         transactionMQProducer.setNamesrvAddr(nameSrvAddr);
         transactionMQProducer.setExecutorService(executorService);
         transactionMQProducer.setTransactionListener(transactionListener);
-        LOGGER.info("TransactionMQProducer create success [producerGroup={}, nameSrvAddr={}, executorService={}, transactionListener={}]", producerGroup, nameSrvAddr, executorService, transactionListener);
+        LOGGER.info(
+            "TransactionMQProducer create success [producerGroup={}, nameSrvAddr={}, executorService={}, transactionListener={}]",
+            producerGroup, nameSrvAddr, executorService, transactionListener);
         return transactionMQProducer;
     }
 
     /**
      * 创建（推）消息消费者（tags为*，集群消费模式）
      *
-     * @param consumerGroup   消费者组
-     * @param nameSrvAddr     状态机集群地址
-     * @param topic           消息主题
-     * @param messageListener 监听
+     * @param consumerGroup
+     *            消费者组
+     * @param nameSrvAddr
+     *            状态机集群地址
+     * @param topic
+     *            消息主题
+     * @param messageListener
+     *            监听
      * @return PushConsumerAgent
      */
-    public static DefaultMQPushConsumer createPushConsumer(String consumerGroup, String nameSrvAddr, String topic, MessageListenerConcurrently messageListener) throws MQClientException {
+    public static DefaultMQPushConsumer createPushConsumer(String consumerGroup, String nameSrvAddr, String topic,
+        MessageListenerConcurrently messageListener) throws MQClientException {
         return createPushConsumer(consumerGroup, nameSrvAddr, topic, null, null, null, null, messageListener);
     }
 
     /**
      * 创建（推）消息消费者（tags为*）
      *
-     * @param consumerGroup   消费者组
-     * @param nameSrvAddr     状态机集群地址
-     * @param topic           消息主题
-     * @param messageModel    消费模式
-     * @param messageListener 监听
+     * @param consumerGroup
+     *            消费者组
+     * @param nameSrvAddr
+     *            状态机集群地址
+     * @param topic
+     *            消息主题
+     * @param messageModel
+     *            消费模式
+     * @param messageListener
+     *            监听
      * @return PushConsumerAgent
      */
-    public static DefaultMQPushConsumer createPushConsumer(String consumerGroup, String nameSrvAddr, String topic, MessageModel messageModel, MessageListenerConcurrently messageListener) throws MQClientException {
+    public static DefaultMQPushConsumer createPushConsumer(String consumerGroup, String nameSrvAddr, String topic,
+        MessageModel messageModel, MessageListenerConcurrently messageListener) throws MQClientException {
         return createPushConsumer(consumerGroup, nameSrvAddr, topic, null, messageModel, null, null, messageListener);
     }
 
     /**
      * 创建（推）消息消费者（集群消费模式）
      *
-     * @param consumerGroup   消费者组
-     * @param nameSrvAddr     状态机集群地址
-     * @param topic           消息主题
-     * @param tags            标签
-     * @param messageListener 监听
+     * @param consumerGroup
+     *            消费者组
+     * @param nameSrvAddr
+     *            状态机集群地址
+     * @param topic
+     *            消息主题
+     * @param tags
+     *            标签
+     * @param messageListener
+     *            监听
      * @return PushConsumerAgent
      */
-    public static DefaultMQPushConsumer createPushConsumer(String consumerGroup, String nameSrvAddr, String topic, String tags, MessageListenerConcurrently messageListener) throws MQClientException {
+    public static DefaultMQPushConsumer createPushConsumer(String consumerGroup, String nameSrvAddr, String topic,
+        String tags, MessageListenerConcurrently messageListener) throws MQClientException {
         return createPushConsumer(consumerGroup, nameSrvAddr, topic, tags, null, null, null, messageListener);
     }
 
     /**
      * 创建（推）消息消费者
      *
-     * @param consumerGroup   消费者组
-     * @param nameSrvAddr     状态机集群地址
-     * @param topic           消息主题
-     * @param tags            标签
-     * @param messageModel    消费模式
-     * @param messageListener 监听
+     * @param consumerGroup
+     *            消费者组
+     * @param nameSrvAddr
+     *            状态机集群地址
+     * @param topic
+     *            消息主题
+     * @param tags
+     *            标签
+     * @param messageModel
+     *            消费模式
+     * @param messageListener
+     *            监听
      * @return PushConsumerAgent
      */
-    public static DefaultMQPushConsumer createPushConsumer(String consumerGroup, String nameSrvAddr, String topic, String tags, MessageModel messageModel, MessageListenerConcurrently messageListener) throws MQClientException {
+    public static DefaultMQPushConsumer createPushConsumer(String consumerGroup, String nameSrvAddr, String topic,
+        String tags, MessageModel messageModel, MessageListenerConcurrently messageListener) throws MQClientException {
         return createPushConsumer(consumerGroup, nameSrvAddr, topic, tags, messageModel, null, null, messageListener);
     }
 
     /**
      * 创建（推）消息消费者
      *
-     * @param consumerGroup   消费者组
-     * @param nameSrvAddr     状态机集群地址
-     * @param topic           消息主题
-     * @param tags            标签
-     * @param messageModel    消费模式
-     * @param threadMax       最大线程数
-     * @param threadMin       最小线程数
-     * @param messageListener 监听
+     * @param consumerGroup
+     *            消费者组
+     * @param nameSrvAddr
+     *            状态机集群地址
+     * @param topic
+     *            消息主题
+     * @param tags
+     *            标签
+     * @param messageModel
+     *            消费模式
+     * @param threadMax
+     *            最大线程数
+     * @param threadMin
+     *            最小线程数
+     * @param messageListener
+     *            监听
      * @return PushConsumerAgent
      */
-    public static DefaultMQPushConsumer createPushConsumer(String consumerGroup, String nameSrvAddr, String topic, String tags, MessageModel messageModel, Integer threadMax, Integer threadMin, MessageListenerConcurrently messageListener) throws MQClientException {
+    public static DefaultMQPushConsumer createPushConsumer(String consumerGroup, String nameSrvAddr, String topic,
+        String tags, MessageModel messageModel, Integer threadMax, Integer threadMin,
+        MessageListenerConcurrently messageListener) throws MQClientException {
         Objects.requireNonNull(consumerGroup, "consumerGroup is null");
         Objects.requireNonNull(nameSrvAddr, "nameSrvAddr is null");
         Objects.requireNonNull(topic, "topic is null");
@@ -158,10 +201,10 @@ public class RocketMQWapper {
             defaultMQPushConsumer.setConsumeThreadMin(threadMin);
         }
         defaultMQPushConsumer.registerMessageListener(messageListener);
-        LOGGER.info("DefaultMQPushConsumer create success [consumerGroup={}, nameSrvAddr={}, topic={}, tags={}, messageModel={}, threadMax={}, threadMin={}, messageListener={}]", consumerGroup, nameSrvAddr, topic, tags, messageModel, threadMax, threadMin, messageListener);
+        LOGGER.info(
+            "DefaultMQPushConsumer create success [consumerGroup={}, nameSrvAddr={}, topic={}, tags={}, messageModel={}, threadMax={}, threadMin={}, messageListener={}]",
+            consumerGroup, nameSrvAddr, topic, tags, messageModel, threadMax, threadMin, messageListener);
         return defaultMQPushConsumer;
     }
 
 }
-
-    
